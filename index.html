@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title>
+		Practicing Kakao API
+	</title>
+  <style>
+    body{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+    }
+    body *{
+      padding: 10px;
+      margin-bottom:10px;
+      border-radius: 12px;
+    }
+    .book {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      
+
+    }
+    input {
+      width: 60vw;
+
+    }
+  </style>
+</head>
+<body>
+	<h1> Let's use Kakao API to get Book info! </h1>
+  <input id="bookName" value="" type="text" placeholder="insert here some book names in korean">
+  <button onClick = "search()"> Search </button>
+  <div class="book">
+  </div>
+
+  
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  function search() {
+    $.ajax({
+  method: "GET",
+  url: "https://dapi.kakao.com/v3/search/book?target=title",
+  data: {  query: $("#bookName").val()},
+  headers:  {Authorization: "KakaoAK 03fb0fea8571e3fd5cdabe20fafecc66"}
+})
+  .done(function( msg ) {
+    console.log(msg.documents);
+    $(".book").append("<h3> Book Title: "+msg.documents[0].title+"</h3><h3> Author: "+msg.documents[0].authors+"</h3> <img src='"+msg.documents[0].thumbnail+"' alt='cover'/>");
+  });
+  }
+
+	
+</script>
+</body>
+</html>
